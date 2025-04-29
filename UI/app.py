@@ -10,9 +10,9 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=os.path.join(base_dir, 'templates'), static_folder=os.path.join(base_dir, 'static'))
 
 # Load models
-spoof_model = YOLO(os.path.join(base_dir, '/Users/krupalishinde/Real-Time-AI-Face-Verification-System/Models/n_version_1.pt'))
-gesture_model = load_model(os.path.join(base_dir, '/Users/krupalishinde/Real-Time-AI-Face-Verification-System/Models/gesture_classifier_model.h5'))
-predictor_path = os.path.join(base_dir, '/Users/krupalishinde/Real-Time-AI-Face-Verification-System/Models/shape_predictor_68_face_landmarks.dat')
+spoof_model = YOLO(os.path.join(base_dir, 'Real-Time-AI-Face-Verification-System/Models/n_version_1.pt'))
+gesture_model = load_model(os.path.join(base_dir, 'Real-Time-AI-Face-Verification-System/Models/gesture_classifier_model.h5'))
+predictor_path = os.path.join(base_dir, 'Real-Time-AI-Face-Verification-System/Models/shape_predictor_68_face_landmarks.dat')
 
 # Configs
 CONFIDENCE_THRESHOLD = 0.90
