@@ -129,6 +129,10 @@ This will:
 - Accuracy: 100% on validation set
 - F1-Score: 1.00 for both blink and smile
 
+## Project Presentation
+
+Download the PowerPoint here:
+[realtime_ai_faceverification_ppt.pptx](./realtime_ai_faceverification_ppt.pptx)
 ---
 
 ## Notes
