@@ -21,12 +21,12 @@ classes = ['blink', 'smile']
 for cls in classes:
     class_path = os.path.join(src_root, cls)
     if not os.path.isdir(class_path):
-        print(f"⚠️ Folder not found: {class_path}")
+        print(f"Folder not found: {class_path}")
         continue
 
     images = [f for f in os.listdir(class_path) if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
     if not images:
-        print(f"⚠️ No images in {class_path}")
+        print(f"No images in {class_path}")
         continue
 
     train_val, test = train_test_split(images, test_size=test_size, random_state=42)
@@ -80,7 +80,7 @@ pdf.output(pdf_path)
 
 # Display final counts as a DataFrame
 summary_df = pd.DataFrame(summary).T
-print("\n📋 Summary Table:\n")
+print("\n Summary Table:\n")
 summary_df
 
 pdf_path, chart_path
