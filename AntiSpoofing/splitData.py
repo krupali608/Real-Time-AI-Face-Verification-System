@@ -3,8 +3,8 @@ import random
 import shutil
 from itertools import islice
 
-outputFolderPath = "/Users/krupalishinde/Anti-Spoofing/Dataset/splitData"
-inputFolderPath = "/Users/krupalishinde/Anti-Spoofing/Dataset/all"
+outputFolderPath = "Anti-Spoofing/Dataset/splitData"
+inputFolderPath = "Anti-Spoofing/Dataset/all"
 splitRatio = {"train": 0.7, "val": 0.2, "test": 0.1}
 classes = ["fake", "real"]
 
