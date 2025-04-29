@@ -6,7 +6,7 @@ import os
 
 # Configuration
 classID = 0  # 0 = fake, 1 = real
-outputFolderPath = '/Users/krupalishinde/Anti-Spoofing/Dataset/DataCollect'
+outputFolderPath = 'Anti-Spoofing/Dataset/DataCollect'
 confidence = 0.8
 save = True
 blurThreshold = 35
