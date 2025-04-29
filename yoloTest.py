@@ -10,7 +10,7 @@ cap.set(4, 480)
 # cap = cv2.VideoCapture("../Videos/motorbikes.mp4")  # For Video
  
  
-model = YOLO("/Users/krupalishinde/Anti-Spoofing/models/yolov8n.pt")
+model = YOLO("/models/yolov8n.pt")
  
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
               "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
