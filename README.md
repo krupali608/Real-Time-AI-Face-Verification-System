@@ -132,7 +132,7 @@ This will:
 ## Project Presentation
 
 Download the PowerPoint here:
-[realtime_ai_faceverification_ppt.pptx](./realtime_ai_faceverification_ppt.pptx)
+[realtime_ai_faceverification_ppt.pptx](Project-Report/realtime_ai_faceverification_ppt.pptx)
 ---
 
 ## Notes
