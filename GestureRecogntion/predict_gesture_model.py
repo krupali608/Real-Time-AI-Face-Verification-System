@@ -14,7 +14,7 @@ class_labels = ['blink', 'smile']
 CONFIDENCE_THRESHOLD = 0.90
 
 # Load dlib predictor
-predictor_path = "/Users/krupalishinde/Anti-Spoofing/shape_predictor_68_face_landmarks.dat"
+predictor_path = "Anti-Spoofing/shape_predictor_68_face_landmarks.dat"
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(predictor_path)
 
