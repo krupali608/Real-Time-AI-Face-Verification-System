@@ -35,6 +35,8 @@ This project implements a Real-Time AI Face Verification System that combines YO
 - Real faces captured using a webcam.
 - Fake faces printed on paper or shown on digital devices.
 - Labelled in YOLO format.
+- The Folder structure needs to be such that, when you are capturing Real Faces and after it is saved in /Dataset/all/, then it needs to be moved to /Dataset/Real
+- Same goes for Fake, when you are capturing Fake Faces, and, after it is saved in /Dataset/all/, then it needs to be moved to /Dataset/Fake
 
 Folder structure:
 ```
