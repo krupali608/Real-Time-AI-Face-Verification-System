@@ -71,7 +71,7 @@ while current_frame is None:
     time.sleep(0.1)
 
 command = random.choice(class_labels)
-print(f"🧠 Perform this gesture: {command}")
+print(f"Perform this gesture: {command}")
 cv2.putText(current_frame, f"Command: {command}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
 cv2.imshow("Gesture Verification", current_frame)
 cv2.waitKey(1500)
@@ -79,7 +79,7 @@ cv2.waitKey(1500)
 # Prediction loop
 predictions = []
 frame_count = 10
-print("⏳ Capturing... Hold your gesture")
+print("Capturing... Hold your gesture")
 start_time = time.time()
 frame_index = 0
 
@@ -122,7 +122,7 @@ while len(predictions) < frame_count and time.time() - start_time < 5:
     cv2.putText(frame, f"Command: {command}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
     cv2.putText(frame, f"Prediction: {class_labels[pred_index]} ({preds[0][pred_index]*100:.1f}%)", (10, 70),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
-    cv2.rectangle(frame, (x1, y1), (x2, y2), (100, 255, 100), 2)  # ✅ draw bounding box here
+    cv2.rectangle(frame, (x1, y1), (x2, y2), (100, 255, 100), 2)  #  draw bounding box here
     cv2.imshow("Gesture Verification", frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
@@ -140,7 +140,7 @@ if most_common_label == command and best_confidence >= CONFIDENCE_THRESHOLD:
     result_text = f"Verified: {most_common_label} ({best_confidence*100:.1f}%)"
     color = (0, 255, 0)
 elif most_common_label == command:
-    result_text = f"🔁 Retry: Low confidence ({best_confidence*100:.1f}%)"
+    result_text = f"Retry: Low confidence ({best_confidence*100:.1f}%)"
     color = (0, 255, 255)
 else:
     result_text = f"Spoof Detected: {most_common_label} ({best_confidence*100:.1f}%)"
