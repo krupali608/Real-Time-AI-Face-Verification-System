@@ -10,9 +10,9 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=os.path.join(base_dir, 'templates'), static_folder=os.path.join(base_dir, 'static'))
 
 # Load models
-spoof_model = YOLO(os.path.join(base_dir, 'models/n_version_1.pt'))
-gesture_model = load_model(os.path.join(base_dir, 'gesture_classifier_model.h5'))
-predictor_path = os.path.join(base_dir, 'shape_predictor_68_face_landmarks.dat')
+spoof_model = YOLO(os.path.join(base_dir, '/Users/krupalishinde/Real-Time-AI-Face-Verification-System/Models/n_version_1.pt'))
+gesture_model = load_model(os.path.join(base_dir, '/Users/krupalishinde/Real-Time-AI-Face-Verification-System/Models/gesture_classifier_model.h5'))
+predictor_path = os.path.join(base_dir, '/Users/krupalishinde/Real-Time-AI-Face-Verification-System/Models/shape_predictor_68_face_landmarks.dat')
 
 # Configs
 CONFIDENCE_THRESHOLD = 0.90
@@ -62,8 +62,12 @@ def gen_frames():
                 color = (0, 255, 0) if classNames[cls] == 'real' else (0, 0, 255)
                 cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
                 cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
-                if conf > 0.8 and classNames[cls] == 'real':
-                    real_face_detected = True
+                if conf > 0.8:
+                    if classNames[cls] == 'real':
+                        real_face_detected = True
+                    elif classNames[cls] == 'fake':
+                            real_face_detected = False
+
 
             _, buffer = cv2.imencode('.jpg', frame)
             yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
