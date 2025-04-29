@@ -10,7 +10,7 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 
-model = YOLO("/Users/krupalishinde/Anti-Spoofing/models/n_version_1.pt")
+model = YOLO("Anti-Spoofing/models/n_version_1.pt")
 
 classNames = ["fake", "real"]
 
