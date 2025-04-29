@@ -33,7 +33,7 @@ detector = FaceDetector(minDetectionCon=0.5, modelSelection=0)
 while True:
     success, img = cap.read()
     if not success:
-        print("⚠️ Camera read failed.")
+        print("Camera read failed.")
         break
 
     imgOut = img.copy()
@@ -58,7 +58,7 @@ while True:
 
                 imgFace = img[y: y + h, x: x + w]
                 if imgFace.size == 0:
-                    print("⚠️ Empty face image – skipping")
+                    print("Empty face image – skipping")
                     continue
 
                 cv2.imshow("Face", imgFace)
@@ -75,7 +75,7 @@ while True:
                 if debug:
                     print(f"Blur: {blurValue}, Brightness: {int(brightness)}, Focused: {isFocused}")
                 if not isFocused:
-                    print("⚠️ Low light or blurry image – consider improving lighting.")
+                    print("Low light or blurry image – consider improving lighting.")
 
                 # Normalize coordinates for YOLO label
                 ih, iw, _ = img.shape
@@ -101,7 +101,7 @@ while True:
 
         # Save even if blurry (useful for training on bad data too)
         cv2.imwrite(imagePath, img)
-        print(f"✅ Saved: {imagePath}")
+        print(f" Saved: {imagePath}")
 
         with open(textPath, 'a') as f:
             f.writelines(listInfo)
