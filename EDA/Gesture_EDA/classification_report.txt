@@ -1,0 +1,8 @@
+              precision    recall  f1-score   support
+
+       blink       1.00      1.00      1.00       440
+       smile       1.00      1.00      1.00       379
+
+    accuracy                           1.00       819
+   macro avg       1.00      1.00      1.00       819
+weighted avg       1.00      1.00      1.00       819
