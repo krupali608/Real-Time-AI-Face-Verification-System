@@ -128,21 +128,39 @@
         alert(message);
         btn.textContent = "Retry";
         failCount++;
+  
+        // Auto-reset Retry to Verify after 2 seconds
+        setTimeout(() => {
+          if (!btn.disabled && failCount < 3) {
+            btn.textContent = "Verify";
+            gesturePrompt.classList.add("hidden");
+          }
+        }, 2000);
+  
       } else if (status === 'verified') {
-        btn.textContent = "Verified";
+        btn.textContent = "✅ Verified";
         btn.disabled = true;
+  
       } else if (status === 'command') {
-        currentCommand = message.split(': ')[1]; // Extract gesture
+        currentCommand = message.split(': ')[1]; // Extract gesture (e.g. 'blink')
         gesturePrompt.textContent = message;
         gesturePrompt.classList.remove("hidden");
         btn.textContent = "Verify Gesture";
+  
+      } else if (status === 'blocked' || failCount >= 3) {
+        alert("User blocked: 3 attempts failed.");
+        btn.textContent = "Blocked";
+        btn.disabled = true;
+        gesturePrompt.classList.add("hidden");
       }
     }
   
     btn.addEventListener("click", function () {
       if (failCount >= 3) {
-        alert("Too many failed attempts. Access denied.");
+        alert("User blocked: 3 attempts failed.");
+        btn.textContent = "Blocked";
         btn.disabled = true;
+        gesturePrompt.classList.add("hidden");
         return;
       }
   
@@ -156,21 +174,8 @@
           .then(data => updateButtonState(data.status, data.message));
       }
     });
-  
-    // Optional: poll to reset "Retry" to "Verify" if face becomes real again
-    setInterval(() => {
-      if (btn.textContent === "Retry") {
-        fetch('/verify', { method: 'POST' })
-          .then(response => response.json())
-          .then(data => {
-            if (data.status === 'command') {
-              btn.textContent = "Verify";
-              gesturePrompt.classList.add("hidden");
-            }
-          });
-      }
-    }, 1500);
-  </script>  
+  </script>
+    
   
 </body>
 </html>
