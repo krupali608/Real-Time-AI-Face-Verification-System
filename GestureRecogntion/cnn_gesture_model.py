@@ -73,7 +73,7 @@ def plot_precision_recall(y_true, y_probs, class_labels):
 
 # ==== Main Training Script ====
 def main():
-    print("🧠 Starting MobileNetV2 Gesture Training...")
+    print("Starting MobileNetV2 Gesture Training...")
 
     data_dir = 'gesture_data_split'
     img_height, img_width = 224, 224
@@ -125,7 +125,7 @@ def main():
     )
 
     model.save("gesture_classifier_model.h5")
-    print("💾 Model saved as gesture_classifier_model.h5")
+    print("Model saved as gesture_classifier_model.h5")
 
     with open("runs/gesture_training_history.pkl", "wb") as f:
         pickle.dump(history.history, f)
@@ -146,7 +146,7 @@ def main():
     with open(report_path, "w") as f:
         f.write(classification_report(y_true, y_pred_classes, target_names=class_labels))
 
-    print("🎉 All artifacts saved in 'runs/' folder.")
+    print(" All artifacts saved in 'runs/' folder.")
 
 
 if __name__ == '__main__':
