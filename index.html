@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crestwood University - Face Verification</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-image: url('static/BG.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .banner {
+      background-color: rgba(190, 35, 42, 0.83); /* #BE232A */
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .banner h1 {
+      margin: 0;
+      font-family: "Palatino Linotype", serif;
+      font-size: 43px;
+    }
+
+    .banner h2 {
+      margin: 0;
+      font-family: "Work Sans", sans-serif;
+      font-weight: 200;
+      font-size: 20px;
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 50px auto;
+      padding: 30px;
+      width: fit-content;
+      background-color: rgba(204, 204, 204, 0.79); /* #CCCCCC with 79% opacity */
+      border: 1px solid black;
+      border-radius: 5px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .panel {
+      background-color: transparent;
+      border: 1px solid black;
+      border-radius: 5px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .video-box {
+      width: 300px;
+      height: 300px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .video-box img {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+
+    button {
+      font-family: "Helvetica Light", sans-serif;
+      font-size: 18px;
+      background-color: transparent;
+      color: black;
+      padding: 10px 30px;
+      border: 1px solid white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: white;
+    }
+
+    #gesturePrompt {
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner">
+    <h1>CRESTWOOD</h1>
+    <h2>UNIVERSITY</h2>
+  </div>
+
+  <div class="main-container" id="verification-view">
+    <div class="panel">
+      <div class="video-box">
+        <img src="{{ url_for('video') }}" id="video_feed" alt="Video Feed">
+      </div>
+      <p id="gesturePrompt" class="hidden"></p>
+      <button id="verifyBtn">Verify</button>
+    </div>
+  </div>
+
+  <!-- JS Section -->
+  <script>
+    let failCount = 0;
+    let currentCommand = null;
+    const btn = document.getElementById("verifyBtn");
+    const gesturePrompt = document.getElementById("gesturePrompt");
+  
+    function updateButtonState(status, message) {
+      if (status === 'spoof' || status === 'retry') {
+        alert(message);
+        btn.textContent = "Retry";
+        failCount++;
+      } else if (status === 'verified') {
+        btn.textContent = "✅ Verified";
+        btn.disabled = true;
+      } else if (status === 'command') {
+        currentCommand = message.split(': ')[1]; // Extract gesture
+        gesturePrompt.textContent = message;
+        gesturePrompt.classList.remove("hidden");
+        btn.textContent = "Verify Gesture";
+      }
+    }
+  
+    btn.addEventListener("click", function () {
+      if (failCount >= 3) {
+        alert("Too many failed attempts. Access denied.");
+        btn.disabled = true;
+        return;
+      }
+  
+      if (btn.textContent === "Verify" || btn.textContent === "Retry") {
+        fetch('/verify', { method: 'POST' })
+          .then(response => response.json())
+          .then(data => updateButtonState(data.status, data.message));
+      } else if (btn.textContent === "Verify Gesture") {
+        fetch('/gesture_verify', { method: 'POST' })
+          .then(response => response.json())
+          .then(data => updateButtonState(data.status, data.message));
+      }
+    });
+  
+    // Optional: poll to reset "Retry" to "Verify" if face becomes real again
+    setInterval(() => {
+      if (btn.textContent === "Retry") {
+        fetch('/verify', { method: 'POST' })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'command') {
+              btn.textContent = "Verify";
+              gesturePrompt.classList.add("hidden");
+            }
+          });
+      }
+    }, 1500);
+  </script>  
+  
+</body>
+</html>
